@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>蓦然轻叹 - 修改文章  !!(╯' - ')╯︵ ┻━━━┻  </title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/edit_article.css">
+</head>
+<body>
+    {% include 'topbar.html' %}
+    <div id="page-body">
+        <div>
+            <h2 id="title">标题</h2>
+            <input id="title-text" type="text" value="{{ article.title }}" placeholder="请输入标题">
+        </div>
+
+        <div id="text-type">
+            <h2>文章类型:</h2>
+            <div id="select-type">
+                <select id="select-text-type">
+                    <option value=""></option>
+                    {% for type in types %}
+                        <option value="{{ type.type_id }}">{{ type.type_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div id="content">
+            <h2>正文</h2>
+            <div id="editor-toolbar" style="width: 1226px;margin-left: auto; margin-right: auto; background-color:#f1f1f1; border:1px solid #ccc;"></div>
+            <div id="editor-text" style="width: 1226px; margin-left: auto; margin-right: auto; border:1px solid #ccc; border-top:none; height:300px; z-index:10000;">
+{#                {{ article.content }}#}
+            </div>
+            <input type="button" id="post-text" value="发表文章">
+        </div>
+
+
+    </div>
+
+    <script type="text/javascript" src="../static/js/wangEditor.min.js"></script>
+
+    <script type="text/javascript" src="../static/js/wangEditor.min.js.map"></script>
+    <script type="text/javascript" src="../static/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+        // 创建编辑器
+
+        {#// var str = '{{ article.content }}';#}
+        // var str2 = '<h1>6666666666666666</h1><p><span style="background-color: rgb(194, 79, 74);">77777777777</span></p>';
+        // editor.txt.html(str2);
+        var E = window.wangEditor;
+        var editor = new E('#editor-toolbar', '#editor-text');
+        $(function () {
+            $.get('/change_article', {show: '666', articleId:{{ article.article_id }} }, function (res) {
+                var str = res.content;
+                console.log(typeof str);
+                // editor.text.html('<p>' + str + '</p>')
+                $('#editor-text').append(str);
+
+                editor.create();
+            });
+            // var E = window.wangEditor;
+            // var editor = new E('#editor-toolbar', '#editor-text');
+            // editor.create();
+            $('#post-text').on('click', function () {
+                console.log(editor.txt.text());
+                $.post('/change_article', {articleId: {{ article.article_id }},
+                                         article: editor.txt.html(),
+                                         title: $('#title-text').val(),
+                                         type: $('#select-text-type').val()}, function (res) {
+                    if (res === 'ok'){
+                        window.location.href = '/mgr_article'
+                    }
+                    else{
+                        alert('error')
+                    }
+                }, 'text')
+            });
+            $('#{{ article.type_id }}').attr('selected','selected')
+
+        })
+
+
+    </script>
+    <script>
+        var login = function () {
+            window.location.href = '/login'
+        };
+        var logout = function () {
+            window.location.href = '/logout'
+        };
+        var regist = function () {
+            window.location.href = '/regist'
+        };
+        var my_article = function () {
+            window.location.href = '/list_article?typeId=0'
+        };
+        var index = function () {
+            window.location.href = '/'
+        };
+    </script>
+    <script type="text/javascript" src="../static/js/wangEditor.js"></script>
+    <link rel="stylesheet" href="../static/css/wangEditor.css">
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>蓦然轻叹 - 关于我  !!(╯' - ')╯︵ ┻━━━┻  </title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/who_am_I.css">
+
+</head>
+<body>
+{#    {% include 'topbar.html' %}#}
+
+    <div class="header">
+        <div class="portrait">
+            <img src="../static/image/logo" alt="">
+        </div>
+        <div class="base-info">
+            <h1>Yu_dong</h1>
+            div.
+
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <span>Finish by 轻叹 @2017-2018</span><br>
+        <span>idea from 92ez.com</span>
+        <div class="bottom-bg">
+
+        </div>
+    </div>
+
+
+    <script>
+        var login = function () {
+            window.location.href='/login'
+        };
+        var logout = function () {
+            window.location.href='/logout'
+        };
+        var regist = function () {
+            window.location.href='/regist'
+        };
+        var my_article = function () {
+            window.location.href='/list_article'
+        };
+        var index = function () {
+            window.location.href='/'
+        };
+    </script>
+</body>
+</html>
+
+<!--
+<html>
+<head>
+<style>
+.saying:after {
+  content: "|";
+  font-family: Arial, sans-serif;
+  font-size: 1.2em;
+  line-height: 0;
+  display: inline-block;
+  vertical-align: baseline;
+  opacity: 1;
+  animation: caret 500ms infinite;
+}
+</style>
+<script language="javascript">
+var index=0;
+var word;
+function type(){
+    var typePanel = document.getElementById("aa");
+    typePanel.innerText = word.substring(0,index++);
+    if(index % 3 == 0){
+        typePanel.className = "";
+    }else if(index % 3 == 1){
+        typePanel.className = "saying";
+    }
+    var len = document.getElementById('w').innerText.length;
+    if (index > len){
+        document.getElementById('aa').innerHTML='';
+        index = 0;
+    }
+}
+window.onload=function(){
+    word=document.getElementById("w").innerHTML;
+    setInterval(type, 70);
+};
+
+
+</script>
+</head>
+<body>
+<pre id="aa" class="saying"></pre>
+<div style="display:none" id="w">
+    #include "QWidget"
+    #include "QPushButton"
+    #include "QLabel"
+    #include "QLineEdit"
+    #include "QHBoxLayout"
+    #include "QApplication"
+
+    int main(int argc, char *argv[])
+    {
+        QApplication app(argc, argv);
+        QWidget window;   // 顶级Widget
+        // 手动布局
+        // 指明父对象，调用translate翻译，context为childwidget
+        QPushButton *button = new QPushButton(
+                QApplication::translate("childwidget", "Press me"), &window);
+        button->move(100, 100);
+        button->show();
+
+        QLabel *label = new QLabel(QApplication::translate("windowlayout", "Name:"));
+        QLineEdit *lineEdit = new QLineEdit();
+
+        // 自动布局，父子关系暂不明朗
+        QHBoxLayout *layout = new QHBoxLayout();
+        layout->addWidget(label);
+        layout->addWidget(lineEdit);
+        window.setLayout(layout); // 确定父子关系
+        window.setWindowTitle(
+                QApplication::translate("windowlayout", "Window layout"));
+        window.show();
+        return app.exec();
+    }
+</div>
+
+</body>
+
+-->

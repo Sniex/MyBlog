@@ -1,0 +1,25 @@
+{% set username=session.get('username') %}
+<div id="topbar">
+    <div class="main">
+        <ul class="top-nav nav-style">
+            <li id="index" onclick="index()">首页</li>
+            <span>|</span>
+            <li id="my-article" onclick="my_article()">我的文章</li>
+            <span>|</span>
+            <li>联系我</li>
+        </ul>
+        <ul class="login-nav nav-style">
+            {% if username %}
+                {% if username == 'admin' %}
+
+                {% endif %}
+                <li>欢迎: {{ username }}</li>
+                <li id="logout" onclick="logout()">退出登录</li>
+            {% else %}
+                <li id="regist-btn" onclick="regist()">注册</li>
+                <span>|</span>
+                <li id="login-btn" onclick="login()">登录</li>
+            {% endif %}
+        </ul>
+    </div>
+</div>

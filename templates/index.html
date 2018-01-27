@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>蓦然轻叹 - 主页  !!(╯' - ')╯︵ ┻━━━┻  </title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/index.css">
+</head>
+
+<body>
+<canvas></canvas>
+    {% include 'topbar.html' %}
+    <div class="title">
+        <div class="main">
+            <div id="title-bg">
+                <div id="img">
+                    <img id="index-img" src="../static/image/logo">
+                </div>
+                <div id="title-text">
+                    <span>蓦然轻叹</span>
+                    <a href="#">http://github.com/.../</a>
+                </div>
+                <div id="search-bar">
+                    <form class="search-form clear-fix" action="/search" method="post">
+                        <input class="search-input" type="text" onfocus="this.value=''" name="keywords" value="Search....">
+                        <input class="search-submit" type="submit" value="Search">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="text-body">
+        <div id="articles">
+            <div id="text-page">
+            </div>
+            <div class="load-more" id="load-more">
+                加载更多...
+            </div>
+        </div>
+        <div class="right-nav">
+            <div class="article-type" >文章分类</div>
+            <ul class="article-type-list">
+                {% for type in typies %}
+                    <li>
+                        <a href="list_article?typeId={{ type.type_id }}">{{ type.type_name }}</a>
+                        <img src="../static/image/rss.gif" alt="">
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="bottom-nav">
+        <span>Finish by 轻叹 @2017-2018</span><br>
+        <span>idea from 92ez.com</span>
+        <div class="bottom-bg">
+
+        </div>
+    </div>
+
+    <script src="../static/js/jquery-1.11.3.min.js"></script>
+    <script>
+        //文档就绪函数
+        $(function () {
+            var page = 0; // 用来表示当前的页数
+            $('#load-more').on('click', function () {
+                // url, data, callback, dataType
+                $('#load-more').hide();
+                $.get('/get_articles', {pageNum: page++}, function (response) {
+                    // console.log(response);
+                    var str = '';
+                    for (var i = 0; i < response.length; i++) {
+                        var article = response[i];
+                        var articleSlice = article.content.match(/(.*?)<\/p>/)[1];
+                        str = '<div class="text-slice">'
+                            + '<a href="/article?articleId='+ article.article_id +'" class="text-title tab-a">' + article.title + '</a>'
+                            + '<span class="post-time">' + article.post_time + '</span>'
+                            + '<p class="text">' + articleSlice + '</p>'
+                            + '<span class="post-on">发表在:</span><a class="type" href="list_article?typeId='+ article.type_id+'">' + article.type_name + '</a>'
+                            + '</div>';
+                        $('#text-page').append(str);
+                    }
+                    $('#load-more').show();
+                }, 'json');
+            });
+            $('#load-more').click();
+
+            $('#login-btn').on('click', function () {
+                $.get('/login')
+            })
+        });
+        var login = function () {
+            window.location.href = '/login'
+        };
+        var logout = function () {
+            window.location.href = '/logout'
+        };
+        var regist = function () {
+            window.location.href = '/regist'
+        };
+        var my_article = function () {
+            window.location.href = '/list_article?typeId=0'
+        };
+        var index = function () {
+            window.location.href = '/'
+        };
+    </script>
+    <script>
+        $(function(){
+            var canvas = document.querySelector('canvas'),
+                ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            ctx.lineWidth = .3;
+            ctx.strokeStyle = (new Color(150)).style;
+
+            var mousePosition = {
+                x: 30 * canvas.width / 100,
+                y: 30 * canvas.height / 100
+            };
+
+            var dots = {
+                nb: 250,
+                distance: 100,
+                d_radius: 150,
+                array: []
+            };
+
+            function colorValue(min) {
+                return Math.floor(Math.random() * 255 + min);
+            }
+
+            function createColorStyle(r,g,b) {
+                return 'rgba(' + r + ',' + g + ',' + b + ', 0.8)';
+            }
+
+            function mixComponents(comp1, weight1, comp2, weight2) {
+                return (comp1 * weight1 + comp2 * weight2) / (weight1 + weight2);
+            }
+
+            function averageColorStyles(dot1, dot2) {
+                var color1 = dot1.color,
+                    color2 = dot2.color;
+
+                var r = mixComponents(color1.r, dot1.radius, color2.r, dot2.radius),
+                    g = mixComponents(color1.g, dot1.radius, color2.g, dot2.radius),
+                    b = mixComponents(color1.b, dot1.radius, color2.b, dot2.radius);
+                return createColorStyle(Math.floor(r), Math.floor(g), Math.floor(b));
+            }
+
+            function Color(min) {
+                min = min || 0;
+                this.r = colorValue(min);
+                this.g = colorValue(min);
+                this.b = colorValue(min);
+                this.style = createColorStyle(this.r, this.g, this.b);
+            }
+
+            function Dot(){
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+
+                this.vx = -.5 + Math.random();
+                this.vy = -.5 + Math.random();
+
+                this.radius = Math.random() * 2;
+
+                this.color = new Color();
+                console.log(this);
+            }
+
+            Dot.prototype = {
+                draw: function(){
+                    ctx.beginPath();
+                    ctx.fillStyle = this.color.style;
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                    ctx.fill();
+                }
+            };
+
+            function createDots(){
+                for(i = 0; i < dots.nb; i++){
+                    dots.array.push(new Dot());
+                }
+            }
+
+            function moveDots() {
+                for(i = 0; i < dots.nb; i++){
+                    var dot = dots.array[i];
+
+                    if(dot.y < 0 || dot.y > canvas.height){
+                        dot.vx = dot.vx;
+                        dot.vy = - dot.vy;
+                    }
+                    else if(dot.x < 0 || dot.x > canvas.width){
+                        dot.vx = - dot.vx;
+                        dot.vy = dot.vy;
+                    }
+                    dot.x += dot.vx;
+                    dot.y += dot.vy;
+                }
+            }
+
+            function connectDots() {
+                for(i = 0; i < dots.nb; i++){
+                    for(j = 0; j < dots.nb; j++){
+                        i_dot = dots.array[i];
+                        j_dot = dots.array[j];
+
+                        if((i_dot.x - j_dot.x) < dots.distance && (i_dot.y - j_dot.y) < dots.distance && (i_dot.x - j_dot.x) > - dots.distance && (i_dot.y - j_dot.y) > - dots.distance){
+                            if((i_dot.x - mousePosition.x) < dots.d_radius && (i_dot.y - mousePosition.y) < dots.d_radius && (i_dot.x - mousePosition.x) > - dots.d_radius && (i_dot.y - mousePosition.y) > - dots.d_radius){
+                                ctx.beginPath();
+                                ctx.strokeStyle = averageColorStyles(i_dot, j_dot);
+                                ctx.moveTo(i_dot.x, i_dot.y);
+                                ctx.lineTo(j_dot.x, j_dot.y);
+                                ctx.stroke();
+                                ctx.closePath();
+                            }
+                        }
+                    }
+                }
+            }
+
+            function drawDots() {
+                for(i = 0; i < dots.nb; i++){
+                    var dot = dots.array[i];
+                    dot.draw();
+                }
+            }
+
+            function animateDots() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                moveDots();
+                connectDots();
+                drawDots();
+                requestAnimationFrame(animateDots);
+            }
+
+            $('#canvas').on('mousemove', function(e){
+                mousePosition.x = e.pageX;
+                mousePosition.y = e.pageY;
+            });
+
+            $('#canvas').on('mouseleave', function(e){
+                mousePosition.x = canvas.width / 2;
+                mousePosition.y = canvas.height / 2;
+            });
+
+            createDots();
+            requestAnimationFrame(animateDots);
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+#login-form{
+    /*width: 1024px;*/
+    /*height: 768px;*/
+    /*margin: 100px auto;*/
+    /*border: 1px solid #acbd ;*/
+    /*box-shadow: 3px 3px 5px rgba(10, 120, 240, 0.3);*/
+    position:relative;
+    width:1226px;
+    margin:0 auto;
+}
+
+.title-line{
+    width: 1226px;
+    height: 28px;
+    border-bottom: 1px solid #ddd;
+    margin: 1px auto 28px;
+    text-align: center;
+}
+.tit{
+    height:56px;
+    line-height:56px;
+    margin:2px auto;
+    padding: 2px 20px;
+    /*font-size:40px;*/
+    font-size: 38px;
+    background:#fff;
+    text-align:center;
+    color: darkgray;
+}
+
+#input-box-username{
+    position: absolute;
+    top: 120px;
+    left: 408px;
+    /*right: 50%;*/
+    outline: 0;
+    font: 14px 微软雅黑, sans-serif;
+    width: 388px;
+    border: 1px solid #ddd;
+    color: #aaa;
+    padding: 10px;
+    height: 18px;
+    vertical-align: middle;
+    border-radius: 4px;
+}
+
+#input-box-password{
+    position: absolute;
+    top: 180px;
+    left: 408px;
+    /*right: 50%;*/
+}
+#input-box-email{
+    position: absolute;
+    top: 300px;
+    left: 408px;
+    /*right: 50%;*/
+
+    outline: 0;
+    font: 14px 微软雅黑, sans-serif;
+    width: 388px;
+    border: 1px solid #ddd;
+    color: #aaa;
+    padding: 10px;
+    height: 18px;
+    vertical-align: middle;
+    border-radius: 4px;
+}
+#input-box-password-confirm{
+    position: absolute;
+    top: 240px;
+    left: 408px;
+    /*right: 50%;*/
+
+    outline: 0;
+    font: 14px 微软雅黑, sans-serif;
+    width: 388px;
+    border: 1px solid #ddd;
+    color: #aaa;
+    padding: 10px;
+    height: 18px;
+    vertical-align: middle;
+    border-radius: 4px;
+}
+#portrait{
+    position: absolute;
+    top: 360px;
+    left: 408px;
+}
+#regist-btn{
+    position: absolute;
+    top: 360px;
+    left: 520px;
+
+    display: inline-block;
+    height: 36px;
+    border: 1px solid #0381aa;
+    color: #fff;
+    background-color: #00a7de;
+    border-radius: 2px;
+    width: 184px;
+    line-height: 38px;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+#tip-username{
+    position: absolute;
+    top: 125px;
+    left: 850px;
+    color: #f45d90;
+}
+#tip-password{
+    position: absolute;
+    top: 185px;
+    left: 850px;
+    color: #f45d90;
+}
+#tip-password-confirm{
+    position: absolute;
+    top: 245px;
+    left: 850px;
+    color: #f45d90;
+}
+#back-index{
+    position: absolute;
+    top: 410px;
+    left: 580px;
+    font-size: 14px;
+    color: #555555;
+}

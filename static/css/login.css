@@ -1,0 +1,60 @@
+#login-form{
+    /*width: 1024px;*/
+    /*height: 768px;*/
+    /*margin: 100px auto;*/
+    /*border: 1px solid #acbd ;*/
+    /*box-shadow: 3px 3px 5px rgba(10, 120, 240, 0.3);*/
+    position:relative;
+    width:1226px;
+    margin:0 auto;
+}
+
+.title-line{
+    width: 1226px;
+    height: 28px;
+    border-bottom: 1px solid #ddd;
+    margin: 1px auto 28px;
+    text-align: center;
+}
+.tit{
+    height:56px;
+    line-height:56px;
+    margin:2px auto;
+    padding: 2px 20px;
+    /*font-size:40px;*/
+    font-size: 38px;
+    background:#fff;
+    text-align:center;
+    color: darkgray;
+}
+
+#input-box-username{
+    position: absolute;
+    top: 120px;
+    left: 408px;
+    /*right: 50%;*/
+}
+#input-box-password{
+    position: absolute;
+    top: 180px;
+    left: 408px;
+    /*right: 50%;*/
+}
+
+#dialog-login-btn{
+    position: absolute;
+    top: 280px;
+    left: 420px;
+}
+#dialog-regist-btn{
+    position: absolute;
+    top: 280px;
+    left: 615px;
+}
+
+#admin{
+    color: #666666;
+    position: absolute;
+    top: 240px;
+    left: 570px;
+}

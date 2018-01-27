@@ -1,0 +1,140 @@
+#wrapper{
+    width: 1226px;
+    margin: 0 auto;
+    position: relative;
+    /*margin-left: auto;*/
+
+}
+#admin-menu{
+    text-align: center;
+    width: 200px;
+    height: 300px;
+    float: left;
+    border: 1px dashed #666666;
+    background: #fafafa;
+
+}
+#admin-menu ul{
+    margin-top: 80px;
+}
+#admin-menu li{
+    /*margin-bottom: 20px;*/
+}
+.mgr-nav{
+    /*width: 200px;*/
+    height: 35px;
+    position: relative;
+    /*border-top: 1px solid #666666;*/
+    /*border-bottom: 1px solid #666666;*/
+}
+.mgr-nav:hover{
+    background: #ff6700;
+}
+#admin-menu span{
+    /*display: inline-block;*/
+    /*margin-left: 50px;*/
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+}
+#admin-menu a{
+    color: #666666;
+    margin-right: 50px;
+    position: absolute;
+    top: 50%;
+    right: 50px;
+    transform: translateY(-50%);
+}
+
+
+
+
+#content{
+    margin-left: 220px;
+    /*margin-top: 50px;*/
+    width: auto;
+    position: relative;
+    top: 50px;
+}
+#buttons a{
+    border: 1px solid #ddd;
+    color: #666666;
+    padding: 5px;
+    margin-bottom: 10px;
+    height: 18px;
+    vertical-align: middle;
+    border-radius: 4px;
+    font: 14px 微软雅黑, sans-serif;
+    outline: 0;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+}
+#buttons a:hover{
+    border: 1px solid #ddd;
+    color: #ffffff;
+    background: #333333;
+    padding: 5px;
+    margin-bottom: 10px;
+    height: 18px;
+    vertical-align: middle;
+    border-radius: 4px;
+    font: 14px 微软雅黑, sans-serif;
+    outline: 0;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+}
+
+#tbl{
+    width: 100%;
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+
+#tbl a{
+    border: 1px solid #ddd;
+    color: #666666;
+    padding: 5px;
+    margin: 5px auto;
+    height: 18px;
+    vertical-align: middle;
+    border-radius: 4px;
+    font: 14px 微软雅黑, sans-serif;
+    outline: 0;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+}
+
+#tbl a:hover{
+    border: 1px solid #ddd;
+    color: #ffffff;
+    background: #333333;
+    padding: 5px;
+    margin: 5px auto;
+    height: 18px;
+    vertical-align: middle;
+    border-radius: 4px;
+    font: 14px 微软雅黑, sans-serif;
+    outline: 0;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+}
+
+
+#tbl th, #tbl td{
+    border: 1px solid #000;
+    text-align: center;
+
+}

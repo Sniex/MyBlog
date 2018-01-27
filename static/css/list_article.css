@@ -1,0 +1,14 @@
+canvas {
+    position: fixed;
+    top: 300px;
+    z-index: -8;
+}
+.text-type-nav li{
+    display: inline-block;
+    background: url(../image/arrow.gif) no-repeat 2px 11px;
+    padding: 5px 0 5px 15px;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
