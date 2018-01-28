@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>蓦然轻叹 - 评论管理  !!(╯' - ')╯︵ ┻━━━┻  </title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/mgr_article.css">
+</head>
+<body>
+    <canvas></canvas>
+    {% include 'topbar.html' %}
+    <div id="wrapper">
+        <div id="admin-menu">
+            <ul>
+                <li>
+                    <div id="mgr_dat" class="mgr-nav">
+                        <a href="#" id="mgr_data">修改资料</a>
+                        <span>&gt;</span>
+                    </div>
+                </li>
+                <li>
+                    <div id="mgr_art" class="mgr-nav">
+                        <a href="/mgr_article" id="mgr_article">文章管理</a>
+                        <span>&gt;</span>
+                    </div>
+                </li>
+                <li>
+                    <div id="mgr_com" class="mgr-nav">
+                        <a href="/mgr_comment" id="mgr_comment">评论管理</a>
+                        <span>&gt;</span>
+                    </div>
+                </li>
+                <li>
+                    <div id="mgr_mes" class="mgr-nav">
+                        <a href="#" id="mgr_message">留言管理</a>
+                        <span>&gt;</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="content">
+            <div id="buttons">
+                <a href="/edit_article">发表文章</a>
+                <a href="#" id="del-article">删除文章</a>
+            </div>
+            <table id="tbl">
+                <tr>
+                    <th><input type="checkbox"></th>
+                    <th>平论内容</th>
+                    <th>发表时间</th>
+                    <th>发表用户</th>
+                    <th>所属文章</th>
+                    <th>操作</th>
+
+                </tr>
+                {% for result in results %}
+                    <tr>
+                        <td><input type="checkbox" value="{{ result.comment_id }}" class="check-box" name="check"></td>
+                        <td>{{ result.content }}</td>
+                        <td>{{ result.post_time }}</td>
+                        <td>{{ result.username }}</td>
+                        <td>{{ result.title }}</td>
+                        <td>
+                            <a href="#" class="delete" data-id="{{ result.comment_id }}">删除</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+
+            </table>
+        </div>
+    </div>
+
+    <script src="../static/js/jquery-1.11.3.min.js"></script>
+    <script>
+        $(function () {
+            $('.delete').on('click', function () {
+                var commentId = $(this).data('id');
+                if(confirm('确定要删除吗?')){
+                    location.href = '/delete_comment?commentId=' + commentId
+                }
+            });
+
+
+            $('#del-article').on('click', function () {
+                var str = '';
+                $('[name=check]:checked').each(function(){
+                      str+= this.value + ','
+                });
+                str = str.substring(0, str.length -1);
+                if(confirm('确定要删除选中的数据吗')){
+                    $.get('/delete_articles', {articleIds : str}, function(res){
+                        if(res === 'ok'){
+                            $('[name=check]:checked').parents('tr').remove();
+                        }
+                        else{
+                            alert('删除失败')
+                        }
+                    })
+                }
+            });
+
+        });
+    </script>
+    <script>
+        var login = function () {
+            window.location.href = '/login'
+        };
+        var logout = function () {
+            window.location.href = '/logout'
+        };
+        var regist = function () {
+            window.location.href = '/regist'
+        };
+        var my_article = function () {
+            window.location.href = '/list_article?typeId=0'
+        };
+        var index = function () {
+            window.location.href = '/'
+        };
+        document.getElementById('mgr_com').style.background='yellow'
+
+    </script>
+    <script>
+        $(function(){
+            var canvas = document.querySelector('canvas'),
+                ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            ctx.lineWidth = .3;
+            ctx.strokeStyle = (new Color(150)).style;
+
+            var mousePosition = {
+                x: 30 * canvas.width / 100,
+                y: 30 * canvas.height / 100
+            };
+
+            var dots = {
+                nb: 250,
+                distance: 100,
+                d_radius: 150,
+                array: []
+            };
+
+            function colorValue(min) {
+                return Math.floor(Math.random() * 255 + min);
+            }
+
+            function createColorStyle(r,g,b) {
+                return 'rgba(' + r + ',' + g + ',' + b + ', 0.8)';
+            }
+
+            function mixComponents(comp1, weight1, comp2, weight2) {
+                return (comp1 * weight1 + comp2 * weight2) / (weight1 + weight2);
+            }
+
+            function averageColorStyles(dot1, dot2) {
+                var color1 = dot1.color,
+                    color2 = dot2.color;
+
+                var r = mixComponents(color1.r, dot1.radius, color2.r, dot2.radius),
+                    g = mixComponents(color1.g, dot1.radius, color2.g, dot2.radius),
+                    b = mixComponents(color1.b, dot1.radius, color2.b, dot2.radius);
+                return createColorStyle(Math.floor(r), Math.floor(g), Math.floor(b));
+            }
+
+            function Color(min) {
+                min = min || 0;
+                this.r = colorValue(min);
+                this.g = colorValue(min);
+                this.b = colorValue(min);
+                this.style = createColorStyle(this.r, this.g, this.b);
+            }
+
+            function Dot(){
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+
+                this.vx = -.5 + Math.random();
+                this.vy = -.5 + Math.random();
+
+                this.radius = Math.random() * 2;
+
+                this.color = new Color();
+                console.log(this);
+            }
+
+            Dot.prototype = {
+                draw: function(){
+                    ctx.beginPath();
+                    ctx.fillStyle = this.color.style;
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                    ctx.fill();
+                }
+            };
+
+            function createDots(){
+                for(i = 0; i < dots.nb; i++){
+                    dots.array.push(new Dot());
+                }
+            }
+
+            function moveDots() {
+                for(i = 0; i < dots.nb; i++){
+                    var dot = dots.array[i];
+
+                    if(dot.y < 0 || dot.y > canvas.height){
+                        dot.vx = dot.vx;
+                        dot.vy = - dot.vy;
+                    }
+                    else if(dot.x < 0 || dot.x > canvas.width){
+                        dot.vx = - dot.vx;
+                        dot.vy = dot.vy;
+                    }
+                    dot.x += dot.vx;
+                    dot.y += dot.vy;
+                }
+            }
+
+            function connectDots() {
+                for(i = 0; i < dots.nb; i++){
+                    for(j = 0; j < dots.nb; j++){
+                        i_dot = dots.array[i];
+                        j_dot = dots.array[j];
+
+                        if((i_dot.x - j_dot.x) < dots.distance && (i_dot.y - j_dot.y) < dots.distance && (i_dot.x - j_dot.x) > - dots.distance && (i_dot.y - j_dot.y) > - dots.distance){
+                            if((i_dot.x - mousePosition.x) < dots.d_radius && (i_dot.y - mousePosition.y) < dots.d_radius && (i_dot.x - mousePosition.x) > - dots.d_radius && (i_dot.y - mousePosition.y) > - dots.d_radius){
+                                ctx.beginPath();
+                                ctx.strokeStyle = averageColorStyles(i_dot, j_dot);
+                                ctx.moveTo(i_dot.x, i_dot.y);
+                                ctx.lineTo(j_dot.x, j_dot.y);
+                                ctx.stroke();
+                                ctx.closePath();
+                            }
+                        }
+                    }
+                }
+            }
+
+            function drawDots() {
+                for(i = 0; i < dots.nb; i++){
+                    var dot = dots.array[i];
+                    dot.draw();
+                }
+            }
+
+            function animateDots() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                moveDots();
+                connectDots();
+                drawDots();
+                requestAnimationFrame(animateDots);
+            }
+
+            $('#canvas').on('mousemove', function(e){
+                mousePosition.x = e.pageX;
+                mousePosition.y = e.pageY;
+            });
+
+            $('#canvas').on('mouseleave', function(e){
+                mousePosition.x = canvas.width / 2;
+                mousePosition.y = canvas.height / 2;
+            });
+
+            createDots();
+            requestAnimationFrame(animateDots);
+        });
+    </script>
+</body>
+</html>
