@@ -170,8 +170,18 @@ def check_login():
     else:
         return 'not_ok'
 
+@app.route('/mgr_comment')
+def mgr_comment():
+    sql = 'select art.article_id, art.title, com.*, usr.username ' \
+          'from t_article art, t_comment com, t_user usr ' \
+          'where com.article_id = art.article_id ' \
+          'and com.user_id = usr.user_id'
+    result = databaes.query_all(sql)
+    print(result)
+    return render_template('mgr_comment.html', results=result)
+
 @app.route('/mgr_article')
-def mgr_article():
+def mge_article():
     sql = 'select art.*, type.type_name ' \
           'from t_article art, t_article_type type ' \
           'where art.type_id=type.type_id '
